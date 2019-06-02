@@ -1,20 +1,21 @@
 ﻿import React, { Component } from 'react';
 
+
 export class customer extends Component {
     displayName = customer.name
 
     constructor(props) {
         super(props);
-        this.state = { forecasts: [], loading: true };
+        this.state = { customers: [], loading: true };
 
         fetch('api/Customers')
             .then(response => response.json())
             .then(data => {
-                this.setState({ forecasts: data, loading: false });
+                this.setState({ customers: data, loading: false });
             });
     }
 
-    static renderForecastsTable(forecasts) {
+    static rendercustomersTable(customers) {
         return (
             <table className='table'>
                 <thead>
@@ -24,19 +25,27 @@ export class customer extends Component {
                         <th>Address</th>
                         <th>Edit</th>
                         <th>Delete</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
-                    {forecasts.map(forecast =>
-                        <tr key={forecast.id}>
-                            <td>{forecast.id}</td>
-                            <td>{forecast.name}</td>
-                           
-                            <td>{forecast.address}</td>
-                            <td>Edit</td>
-                            <td>Delete</td>
-                        
+                    {customers.map(customer =>
+                        <tr key={customer.id}>
+                            <td>{customer.id}</td>
+                            <td>{customer.name}</td>
+
+                            <td>{customer.address}</td>
+                            <td>
+                                <button>
+                                    Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button>
+                                    Delete
+                                </button>
+                            </td>
+
                         </tr>
                     )}
                 </tbody>
@@ -47,7 +56,7 @@ export class customer extends Component {
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : customer.renderForecastsTable(this.state.forecasts);
+            : customer.rendercustomersTable(this.state.customers);
 
         return (
             <div>

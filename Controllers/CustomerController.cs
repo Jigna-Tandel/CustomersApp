@@ -55,7 +55,7 @@ namespace my_new_app.Controllers
 
 
 
-        [HttpGet("[controller]/[action]/{id}")]
+        [HttpGet("{id}")]
         
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -72,21 +72,17 @@ namespace my_new_app.Controllers
                 return NotFound();
             }
 
-            return View(customer);
-        }
-
-        // GET: Customers/Create
-        public IActionResult Create()
-        {
-            return Ok();
+            return Ok(customer);
         }
 
         // POST: Customers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        //[HttpPost]
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address")] Customer customer)
+        public async Task<IActionResult> Create([FromBody] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -97,28 +93,12 @@ namespace my_new_app.Controllers
             return Ok(customer);
         }
 
-        // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customer.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            return Ok(customer);
-        }
-
         // POST: Customers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPut("{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address")] Customer customer)
+        public async Task<IActionResult> Edit(int id, Customer customer)
         {
             if (id != customer.Id)
             {
@@ -143,12 +123,15 @@ namespace my_new_app.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Ok();
             }
-            return View(customer);
+            return ValidationProblem();
         }
 
         // GET: Customers/Delete/5
+          [HttpDelete("{id}")]
+       // [HttpDelete]
+        //[Route("api/Customers/Delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -163,18 +146,10 @@ namespace my_new_app.Controllers
                 return NotFound();
             }
 
-            return Ok(customer);
-        }
-
-        // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var customer = await _context.Customer.FindAsync(id);
             _context.Customer.Remove(customer);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return Ok(customer);
         }
 
         private bool CustomerExists(int id)
