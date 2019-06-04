@@ -1,6 +1,12 @@
 ﻿
 import React, { Component } from 'react';
 import { GetData } from './GetData';
+import { Link } from 'react-router-dom'
+import { update } from './update';
+
+
+
+
 //import { Create } from './Create';
 //{
 //    "items": [
@@ -18,6 +24,7 @@ export class MyComponent extends React.Component {
             items: []
         };
         //this.onDelete = this.onDelete.bind(this);
+       // this.onEditSubmit = this.onEditSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -49,7 +56,7 @@ export class MyComponent extends React.Component {
         console.log("EventHandler called", id);
         console.log('id:' + id);
 
-         fetch('api/Customers/' + id, { method: 'Delete' })
+        fetch('api/Customers/' + id, { method: 'Delete' })
             .then((result) => {
                 let items = this.state.items.filter((item) => {
                     return id !== item.id;
@@ -69,6 +76,14 @@ export class MyComponent extends React.Component {
 
     }
 
+    handleEdit =id => {
+       // this.props.history.push("/update/" + id);
+       // console.log(data);
+
+
+
+    }
+
 
     /* handleDelete = id => {
          console.log("EventHandler called", id);
@@ -81,6 +96,23 @@ export class MyComponent extends React.Component {
              return state;
          });
      };*/
+    onEdit(id, data) {
+        console.log(id);
+        console.log(data);
+        return fetch('api/Customers/' + id, {
+            method: 'PUT',
+            // mode: 'CORS',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            return res;
+        }).catch(err => err);
+       // console.log("name:" + data);
+       // console.log("Address:" + address);
+
+    }
 
     render() {
         const { error, isLoaded, items } = this.state;
@@ -91,56 +123,19 @@ export class MyComponent extends React.Component {
         } else {
             return (
                 <div>
-                   
+                    <Link to="/Create">Add Customer</Link>
 
                     <GetData items={this.state.items}
                         // onDelete={this.onDelete.bind(this)}
                         onDelete={this.handleDelete}
+                       // onEditSubmit={this.onEditSubmit}
+                        onEdit={this.onEdit}
+                       // onEdit={<link to="/update"/>}
                     />
 
                 </div>
             );
-            //<div>
-            //<h1>Customer Detail</h1>
-            //<p>This component demonstrates fetching data from the server.</p>
 
-            //<table className='table'>
-            //    <thead>
-            //        <tr>
-            //            <th>ID</th>
-            //            <th>Name</th>
-            //            <th>Address</th>
-            //            <th>Edit</th>
-            //            <th>Delete</th>
-
-            //        </tr>
-            //    </thead>
-            //    <tbody>
-            //        {items.map(item =>
-            //            <tr key={item.id}>
-            //                <td>{item.id}</td>
-            //                <td>{item.name}</td>
-
-            //                <td>{item.address}</td>
-            //                <td>
-            //                    <button>
-            //                        Edit
-            //                </button>
-            //                </td>
-            //                <td>
-            //                    <button onClick={(id) => this.handleDelete(item.id)}>
-            //                        Delete
-            //                </button>
-            //                </td>
-
-            //            </tr>
-            //        )}
-            //    </tbody>
-            //    </table>
-            //    </div>
-            // );
         }
     }
 }
-
-

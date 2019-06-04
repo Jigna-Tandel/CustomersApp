@@ -2,24 +2,26 @@
 import { update } from './update';
 
 
-export class Form extends React.Component {
-    displayName = Form.name
+export class updateForm extends React.Component {
+    displayName = updateForm.name
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
-       
-                this.state = {
-                    name: '',
-                    address: ''
-                }
-          
-                      
+
+        this.state = {
+            name: '',
+            address: ''
         }
 
 
-    
+    }
 
-    
+    componentWillReceiveProps(props) {
+        this.setState(props);
+        console.log(this.state.address);
+    }
+   
+
     onSubmit(e) {
         e.preventDefault();
         // this.props.onSubmit(this.state);

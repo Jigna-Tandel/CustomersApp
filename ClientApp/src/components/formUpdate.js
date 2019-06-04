@@ -1,41 +1,38 @@
-﻿import React, { Component } from 'react';
-import { update } from './update';
+﻿
 
 
-export class Form extends React.Component {
-    displayName = Form.name
+import React, { Component } from 'react';
+
+export class formUpdate extends Component {
+    displayName = formUpdate.name
+
     constructor(props) {
         super(props);
-        this.onSubmit = this.onSubmit.bind(this);
-       
-                this.state = {
-                    name: '',
-                    address: ''
-                }
-          
-                      
+    }
+
+    getInitialState() {
+        return {
+            name: this.props.name || 'some body',
+            address: this.props.address || 'some title'
         }
+        console.log("name:" + this.state.name);
+    }
 
+    handlenameChange(e) {
+        this.setState({
+            name: e.target.value
+        });
+    }
 
-    
+    handleaddressChange(e) {
+        this.setState({
+            address: e.target.value
+        });
+    }
 
-    
-    onSubmit(e) {
+    handleSubmit(e) {
         e.preventDefault();
-        // this.props.onSubmit(this.state);
-
-        // const data = new FormData(e.target.value);  
-        // this.props.onAdd(data);
-
-        // this.props.onAdd(this.nameInput.value, this.addressInput.value);
-        this.state.name = this.nameInput.value
-        this.state.address = this.addressInput.value;
-        const data = this.state;
-        console.log(data);
-        this.props.onAdd(data);
-        this.nameInput.value = "";
-        this.addressInput.value = "";
-
+        this.props.onSubmit(this.state);
     }
 
 
@@ -53,8 +50,8 @@ export class Form extends React.Component {
                                     id="add_data_Name"
                                     required="required"
                                     defaultValue={this.state.name}
-                                //value={this.state.title}
-                                // onChange={this.handleTitleChange}
+                                value={this.state.name}
+                                    onChange={this.handlenameChange}
                                 />
 
                             </div>
@@ -69,8 +66,8 @@ export class Form extends React.Component {
                                     id="add_data_Adress"
                                     required="required"
                                     defaultValue={this.props.address}
-                                // value={this.state.body}
-                                // onChange={this.handleBodyChange}
+                                 value={this.state.address}
+                                    onChange={this.handleaddressChange}
                                 />
                             </div>
                         </div>
@@ -90,3 +87,4 @@ export class Form extends React.Component {
         );
     }
 }
+

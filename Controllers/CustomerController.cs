@@ -98,7 +98,7 @@ namespace my_new_app.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPut("{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Customer customer)
+        public async Task<IActionResult> Edit(int? id,[FromBody] Customer customer)
         {
             if (id != customer.Id)
             {

@@ -7,6 +7,7 @@ import { Counter } from './components/Counter';
 import { customer } from './components/customer';
 import { MyComponent } from './components/MyComponent';
 import { Create } from './components/Create';
+import { update } from './components/update';
 
 
 import { MainApp } from './components/MainApp'; 
@@ -26,6 +27,7 @@ export default class App extends Component {
             <Route path='/customer' component={customer} />
             <Route path='/MyComponent' component={MyComponent} />
             <Route path='/Create' component={Create} />
+            <Route path='/update/:id' component={update} />
 
             <Route path='/MainApp' component={MainApp} />
             <Route path='/Table1' component={Table1} />
