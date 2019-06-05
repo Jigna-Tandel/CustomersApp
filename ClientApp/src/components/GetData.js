@@ -12,7 +12,7 @@ export class GetData extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            
+            id:'',
              name:'',
             address:''
         }
@@ -28,7 +28,7 @@ export class GetData extends React.Component {
     }
 
     onEdit(id,name,address) {
-        this.setState({ 
+        this.setState({ id:id,
                        name: name ,
             address: address
         })

@@ -97,13 +97,13 @@ namespace my_new_app.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPut("{id}")]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id,[FromBody] Customer customer)
         {
-            if (id != customer.Id)
-            {
-                return NotFound();
-            }
+        //    if (id != customer.Id)
+        //    {
+        //        return NotFound();
+        //    }
 
             if (ModelState.IsValid)
             {
