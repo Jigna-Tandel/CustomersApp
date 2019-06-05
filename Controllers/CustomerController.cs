@@ -89,8 +89,10 @@ namespace my_new_app.Controllers
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+               
             }
             return Ok(customer);
+           
         }
 
         // POST: Customers/Edit/5

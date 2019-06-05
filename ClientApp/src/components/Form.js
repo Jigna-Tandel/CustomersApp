@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { update } from './update';
+
 
 
 export class Form extends React.Component {
@@ -48,13 +48,11 @@ export class Form extends React.Component {
                             <h1>Add Customer</h1>
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                             <div className="col-sm-10">
-                                <input
+                                <input placeholder="Name"
                                     ref={nameInput => this.nameInput = nameInput}
                                     id="add_data_Name"
                                     required="required"
-                                    defaultValue={this.state.name}
-                                //value={this.state.title}
-                                // onChange={this.handleTitleChange}
+                                   
                                 />
 
                             </div>
@@ -68,9 +66,7 @@ export class Form extends React.Component {
                                     ref={addressInput => this.addressInput = addressInput}
                                     id="add_data_Adress"
                                     required="required"
-                                    defaultValue={this.props.address}
-                                // value={this.state.body}
-                                // onChange={this.handleBodyChange}
+                                   
                                 />
                             </div>
                         </div>

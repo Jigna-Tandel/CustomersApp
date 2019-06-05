@@ -1,9 +1,9 @@
 ﻿import React, { Component } from 'react';
-import { update } from './update';
 
 
-export class updateForm extends React.Component {
-    displayName = updateForm.name
+
+export class Form extends React.Component {
+    displayName = Form.name
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -16,11 +16,9 @@ export class updateForm extends React.Component {
 
     }
 
-    componentWillReceiveProps(props) {
-        this.setState(props);
-        console.log(this.state.address);
-    }
-   
+
+
+
 
     onSubmit(e) {
         e.preventDefault();
@@ -50,13 +48,11 @@ export class updateForm extends React.Component {
                             <h1>Add Customer</h1>
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                             <div className="col-sm-10">
-                                <input
+                                <input placeholder="Name"
                                     ref={nameInput => this.nameInput = nameInput}
                                     id="add_data_Name"
                                     required="required"
-                                    defaultValue={this.state.name}
-                                //value={this.state.title}
-                                // onChange={this.handleTitleChange}
+
                                 />
 
                             </div>
@@ -70,9 +66,7 @@ export class updateForm extends React.Component {
                                     ref={addressInput => this.addressInput = addressInput}
                                     id="add_data_Adress"
                                     required="required"
-                                    defaultValue={this.props.address}
-                                // value={this.state.body}
-                                // onChange={this.handleBodyChange}
+
                                 />
                             </div>
                         </div>

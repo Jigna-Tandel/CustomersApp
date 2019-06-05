@@ -1,18 +1,18 @@
 ﻿import React, { Component } from 'react';
 import { Form } from './Form';
-    
 
-        export class Create extends Component {
+
+export class Create extends Component {
     displayName = Create.name
 
     constructor(props) {
         super(props);
         this.onAdd = this.onAdd.bind(this);
 
-        
+
 
     }
-   
+
 
     onAdd(data) {
         console.log(data);
@@ -37,11 +37,11 @@ import { Form } from './Form';
         return (
             <div>
                 <Form onAdd={this.onAdd}
-                     />
+                />
 
-               
+
 
             </div>
-                );
-            }
+        );
+    }
 }

@@ -8,34 +8,35 @@ import { Link } from 'react-router-dom'
 
 export class GetData extends React.Component {
     displayName = GetData.name
-   
+
 
     constructor(props) {
         super(props)
         this.state = {
-            id:'',
-             name:'',
-            address:''
+            id: '',
+            name: '',
+            address: ''
         }
         var isedit = false;
         var id;
 
-        
+
         this.onEdit = this.onEdit.bind(this);
         this.onEditSubmit = this.onEditSubmit.bind(this);
-        
+
     }
 
-    onEdit(id,name,address) {
-        this.setState({ id:id,
-                       name: name ,
+    onEdit(id, name, address) {
+        this.setState({
+            id: id,
+            name: name,
             address: address
         })
         this.isedit = true
         this.id = id;
-        
 
-      
+
+
     }
 
     onEditSubmit(event) {
@@ -47,24 +48,24 @@ export class GetData extends React.Component {
         console.log(id);
         console.log(data);
 
-        this.props.onEdit(id,data);
+        this.props.onEdit(id, data);
         this.nameInput.value = "";
         this.addressInput.value = "";
         this.isedit = false;
-       // console.log(data)
+        // console.log(data)
     }
 
-  
+
 
     render() {
         //const { name, address } = this.props.items;
-        console.log("name:"+this.state.name,"address:"+ this.state.address);
+        console.log("name:" + this.state.name, "address:" + this.state.address);
         return (
             <div>
                 {
                     this.isedit
-                    ? (
-                            
+                        ? (
+
                             <div>
                                 <form name="Edit_data" className="form-horizontal" onSubmit={this.onEditSubmit}>
                                     <div id="add_data">
@@ -77,9 +78,9 @@ export class GetData extends React.Component {
                                                     ref={nameInput => this.nameInput = nameInput}
                                                     defaultValue={this.state.name} />
 
-                                             
-                            
-                </div>
+
+
+                                            </div>
                                         </div>
                                         <div className="form-group">
                                             <label className="col-sm-2 control-label required" htmlFor="add_data_Address">Address</label>
@@ -105,58 +106,58 @@ export class GetData extends React.Component {
                                 </form>
                             </div>
 
-                           
-            )
+
+                        )
                         : (
                             <div>
                                 <div>
                                     <Link to="/Create"><h2>Add Customer</h2></Link>
-                                    </div>
+                                </div>
                                 <div>
 
-                    <h1>Customer Detail</h1>
-                    <p>This component demonstrates fetching data from the server.</p>
+                                    <h1>Customer Detail</h1>
+                                    <p>This component demonstrates fetching data from the server.</p>
 
-                    <table className='table'>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                    <table className='table'>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.props.items.map(item =>
-                                <tr key={item.id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.name}</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.props.items.map(item =>
+                                                <tr key={item.id}>
+                                                    <td>{item.id}</td>
+                                                    <td>{item.name}</td>
 
-                                    <td>{item.address}</td>
-                                    <td>
-                                       <button onClick={() => this.onEdit(item.id,item.name,item.address)}>
-                                            Edit
+                                                    <td>{item.address}</td>
+                                                    <td>
+                                                        <button onClick={() => this.onEdit(item.id, item.name, item.address)}>
+                                                            Edit
                                         </button>
-                                                                               
-                                    </td>
-                                    <td>
 
-                                        <button onClick={() => this.props.onDelete(item.id)}>
-                                            Delete
+                                                    </td>
+                                                    <td>
+
+                                                        <button onClick={() => this.props.onDelete(item.id)}>
+                                                            Delete
                                 </button>
-                                    </td>
-                                    
-                            </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-               
+                                                    </td>
+
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                         )
-}
+                }
             </div>
 
         )

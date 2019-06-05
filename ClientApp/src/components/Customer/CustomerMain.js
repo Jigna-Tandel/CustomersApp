@@ -1,14 +1,14 @@
 ﻿
 import React, { Component } from 'react';
-import { GetData } from './GetData';
+
 import { Link } from 'react-router-dom'
+import { GetData } from './GetData';
 
 
+      
 
-
-
-export class MyComponent extends React.Component {
-    displayName = MyComponent.name
+export class CustomerMain extends React.Component {
+    displayName = CustomerMain.name
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ export class MyComponent extends React.Component {
             items: []
         };
         //this.onDelete = this.onDelete.bind(this);
-       // this.onEditSubmit = this.onEditSubmit.bind(this);
+        // this.onEditSubmit = this.onEditSubmit.bind(this);
     }
 
 
@@ -74,7 +74,7 @@ export class MyComponent extends React.Component {
 
     }
 
-       
+
     onEdit(id, data) {
         console.log(id);
         console.log(data);
@@ -88,8 +88,8 @@ export class MyComponent extends React.Component {
         }).then(res => {
             return res;
         }).catch(err => err);
-     
-       // this.fetchData();
+
+        // this.fetchData();
     }
 
     render() {
@@ -101,12 +101,12 @@ export class MyComponent extends React.Component {
         } else {
             return (
                 <div>
-                    
+
 
                     <GetData items={this.state.items}
-                           onDelete={this.handleDelete}
-                          onEdit={this.onEdit}
-                      
+                        onDelete={this.handleDelete}
+                        onEdit={this.onEdit}
+
                     />
 
                 </div>
