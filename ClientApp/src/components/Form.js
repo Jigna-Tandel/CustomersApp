@@ -53,7 +53,7 @@ export class Form extends React.Component {
             <div>
                 <form name="add_data" className="form-horizontal"
                     onSubmit={this.onSubmit}>
-                   // onSubmit={(e) => { if (window.confirm('Are you sure you wish to Save this item?')) this.onSubmit }}>
+                 
                         
                                      
                     <div id="add_data">
@@ -75,7 +75,7 @@ export class Form extends React.Component {
                             <div className="col-sm-10">
 
 
-                                <input placeholder="Address(Numbers)"
+                                <input placeholder="Address"
                                     ref={addressInput => this.addressInput = addressInput}
                                     id="add_data_Adress"
                                     required="required"

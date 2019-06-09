@@ -145,9 +145,9 @@ export class GetDataStore extends React.Component {
                                                     </td>
                                                     <td>
 
-                                                        <button onClick={() => this.props.onDelete(item.id)}>
+                                                        <button onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.onDelete(item.id) }}>
                                                             Delete
-                                </button>
+                                        </button>
                                                     </td>
 
                                                 </tr>

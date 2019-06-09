@@ -111,12 +111,12 @@ export class GetData extends React.Component {
                         : (
                             <div>
                                 <div>
-                                    <Link to="/Create"><h2>Add Customer</h2></Link>
+                                    <Link to="/Create"><h3>Add Customer</h3></Link>
                                 </div>
                                 <div>
 
                                     <h1>Customer Detail</h1>
-                                    <p>This component demonstrates fetching data from the server.</p>
+                                    
 
                                     <table className='table'>
                                         <thead>
@@ -144,9 +144,9 @@ export class GetData extends React.Component {
                                                     </td>
                                                     <td>
 
-                                                        <button onClick={() => this.props.onDelete(item.id)}>
+                                                        <button onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.onDelete(item.id) }}>
                                                             Delete
-                                </button>
+                                        </button>
                                                     </td>
 
                                                 </tr>

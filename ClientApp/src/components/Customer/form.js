@@ -45,7 +45,7 @@ export class Form extends React.Component {
                 <form name="add_data" className="form-horizontal" onSubmit={this.onSubmit}>
                     <div id="add_data">
                         <div className="form-group">
-                            <h1>Add Customer</h1>
+                            <h3>Add Customer</h3>
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                             <div className="col-sm-10">
                                 <input placeholder="Name"
