@@ -18,32 +18,10 @@ namespace my_new_app.Controllers
         {
             _context = context;
         }
-
-
-       // private static string[] Summaries = new[]
-       //{
-       //     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-       // };
-
-       // [HttpGet("[action]")]
-       // public IEnumerable<Customer> Customer()
-       // {
-       //     var rng = new Random();
-       //     return Enumerable.Range(1, 5).Select(index => new Customer
-       //     {
-       //         Address = DateTime.Now.AddDays(index).ToString("d"),
-       //        // TemperatureC = rng.Next(-20, 55),
-       //         Name = Summaries[rng.Next(Summaries.Length)]
-       //     });
-       // }
-
-
-
-
-
-
-
-
+                 
+        
+               
+        
         [HttpGet()]
         // GET: Customers
         public async Task<IActionResult> Index()

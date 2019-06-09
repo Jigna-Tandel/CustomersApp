@@ -1,34 +1,25 @@
 ﻿import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 
 
 
-export class Form extends React.Component {
-    displayName = Form.name
+export class FormStore extends React.Component {
+    displayName = FormStore.name
     constructor(props) {
         super(props);
-      //  this.Form = React.createRef();
-       // let textInput = React.createRef();
-     //   this.validate = this.validate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-       
-                this.state = {
-                    name: '',
-                    address: ''
-                }
-          
-                      
+
+        this.state = {
+            name: '',
+            address: ''
         }
 
 
-    
-    validate() {
-       // this.forreportValidity();
-       // this.Form.current.forreportValidity();
-       // this.Form.current.forreportValidity;
-        this.addressInput.current.reportValidity();
     }
-    
+
+
+
+
+
     onSubmit(e) {
         e.preventDefault();
         // this.props.onSubmit(this.state);
@@ -51,21 +42,17 @@ export class Form extends React.Component {
     render() {
         return (
             <div>
-                <form name="add_data" className="form-horizontal"
-                    onSubmit={this.onSubmit}>
-                   // onSubmit={(e) => { if (window.confirm('Are you sure you wish to Save this item?')) this.onSubmit }}>
-                        
-                                     
+                <form name="add_data" className="form-horizontal" onSubmit={this.onSubmit}>
                     <div id="add_data">
                         <div className="form-group">
-                            <h1>Add Customer</h1>
+                            <h2>Add Store</h2>
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                             <div className="col-sm-10">
                                 <input placeholder="Name"
                                     ref={nameInput => this.nameInput = nameInput}
                                     id="add_data_Name"
                                     required="required"
-                                   
+
                                 />
 
                             </div>
@@ -75,12 +62,12 @@ export class Form extends React.Component {
                             <div className="col-sm-10">
 
 
-                                <input placeholder="Address(Numbers)"
+                                <input placeholder="Address"
                                     ref={addressInput => this.addressInput = addressInput}
                                     id="add_data_Adress"
                                     required="required"
-                                    
-                             />
+
+                                />
                             </div>
                         </div>
                         <div className="form-group">
@@ -88,13 +75,7 @@ export class Form extends React.Component {
                             <div className="col-sm-10">
                                 <button type="submit"
                                     id="add_data_submit"
-                                    className="btn-default btn"
-                                    onClick={() => {
-                                        alert('Record Save Successfully!');
-                                        <nav to={'/MyComponent'}/>
-                                    
-                                    }}>
-                              
+                                    className="btn-default btn">
                                     Submit
                                 </button>
                             </div>

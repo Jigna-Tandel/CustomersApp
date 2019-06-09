@@ -2,13 +2,13 @@
 import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom'
-import { GetData } from './GetData';
+import { GetDataProduct } from './GetDataProduct';
 
 
       
 
-export class CustomerMain extends React.Component {
-    displayName = CustomerMain.name
+export class ProductMain extends React.Component {
+    displayName = ProductMain.name
     constructor(props) {
         super(props);
         this.state = {
@@ -35,7 +35,7 @@ export class CustomerMain extends React.Component {
     }
 
     fetchData() {
-        fetch('api/Customers')
+        fetch('api/Products')
             .then(res => res.json())
             .then(
                 (result) => {
@@ -61,7 +61,7 @@ export class CustomerMain extends React.Component {
         console.log("EventHandler called", id);
         console.log('id:' + id);
 
-        fetch('api/Customers/' + id, { method: 'Delete' })
+        fetch('api/Products/' + id, { method: 'Delete' })
             .then((result) => {
                 let items = this.state.items.filter((item) => {
                     return id !== item.id;
@@ -85,7 +85,7 @@ export class CustomerMain extends React.Component {
     onEdit(id, data) {
         console.log(id);
         console.log(data);
-        return fetch('api/Customers/' + id, {
+        return fetch('api/Products/' + id, {
             method: 'PUT',
             // mode: 'CORS',
             body: JSON.stringify(data),
@@ -109,8 +109,8 @@ export class CustomerMain extends React.Component {
             return (
                 <div>
 
-
-                    <GetData items={this.state.items}
+                   
+                    <GetDataProduct items={this.state.items}
                         onDelete={this.handleDelete}
                         onEdit={this.onEdit}
 

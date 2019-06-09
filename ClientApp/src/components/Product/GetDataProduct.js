@@ -1,17 +1,14 @@
 ﻿
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { MyComponent } from './MyComponent';
-//import { Link } from 'react-router-dom';
-//import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-//
+import { CreateProduct } from './CreateProduct';
 
 
+CreateProduct
 
 
-export class GetData extends React.Component {
-    displayName = GetData.name
+export class GetDataProduct extends React.Component {
+    displayName = GetDataProduct.name
 
 
     constructor(props) {
@@ -19,7 +16,7 @@ export class GetData extends React.Component {
         this.state = {
             id: '',
             name: '',
-            address: ''
+            price: ''
         }
         var isedit = false;
         var id;
@@ -30,11 +27,11 @@ export class GetData extends React.Component {
 
     }
 
-    onEdit(id, name, address) {
+    onEdit(id, name, price) {
         this.setState({
             id: id,
             name: name,
-            address: address
+            price: price
         })
         this.isedit = true
         this.id = id;
@@ -46,7 +43,7 @@ export class GetData extends React.Component {
     onEditSubmit(event) {
         event.preventDefault();
         this.state.name = this.nameInput.value
-        this.state.address = this.addressInput.value;
+        this.state.price = this.priceInput.value;
         const id = this.id;
         const data = this.state;
         console.log(id);
@@ -54,7 +51,7 @@ export class GetData extends React.Component {
 
         this.props.onEdit(id, data);
         this.nameInput.value = "";
-        this.addressInput.value = "";
+        this.priceInput.value = "";
         this.isedit = false;
         // console.log(data)
     }
@@ -62,8 +59,8 @@ export class GetData extends React.Component {
 
 
     render() {
-        //const { name, address } = this.props.items;
-        console.log("name:" + this.state.name, "address:" + this.state.address);
+        //const { name, price } = this.props.items;
+        console.log("name:" + this.state.name, "price:" + this.state.price);
         return (
             <div>
                 {
@@ -71,14 +68,10 @@ export class GetData extends React.Component {
                         ? (
 
                             <div>
-                                <form name="Edit_data" className="form-horizontal"
-                                     onSubmit={this.onEditSubmit}
-                                   
-                                >
-                                    
+                                <form name="Edit_data" className="form-horizontal" onSubmit={this.onEditSubmit}>
                                     <div id="add_data">
                                         <div className="form-group">
-                                            <h2>Edit Customer</h2>
+                                            <h2>Edit Product</h2>
                                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                                             <div className="col-sm-10">
                                                 <input placeholder="Name"
@@ -91,26 +84,22 @@ export class GetData extends React.Component {
                                             </div>
                                         </div>
                                         <div className="form-group">
-                                            <label className="col-sm-2 control-label required" htmlFor="add_data_Address">Address</label>
+                                            <label className="col-sm-2 control-label required" htmlFor="add_data_price">price</label>
                                             <div className="col-sm-10">
 
 
-                                                <input placeholder="Address"
+                                                <input placeholder="price"
                                                     required="required"
-                                                    ref={addressInput => this.addressInput = addressInput}
-                                                    defaultValue={this.state.address} />
+                                                    type="number"
+                                                    ref={priceInput => this.priceInput = priceInput}
+                                                    defaultValue={this.state.price} />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <div className="col-sm-2"></div>
                                             <div className="col-sm-10">
                                                 <button
-                                                    className="btn-default btn"
-                                                    onClick={() => {
-                                                        alert('Record Save Successfully!')
-                                                    }}>
-                                                       
-                                                                                                              
+                                                    className="btn-default btn">
                                                     Save
                                 </button>
                                             </div>
@@ -124,11 +113,11 @@ export class GetData extends React.Component {
                         : (
                             <div>
                                 <div>
-                                    <Link to="/Create"><h2>Add Customer</h2></Link>
+                                    <Link to="./CreateProduct"><h2>Add Product</h2></Link>
                                 </div>
                                 <div>
 
-                                    <h1>Customer Detail</h1>
+                                    <h1>Product Detail</h1>
                                     <p>This component demonstrates fetching data from the server.</p>
 
                                     <table className='table'>
@@ -136,7 +125,7 @@ export class GetData extends React.Component {
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
-                                                <th>Address</th>
+                                                <th>price</th>
                                                 <th>Edit</th>
                                                 <th>Delete</th>
 
@@ -148,22 +137,18 @@ export class GetData extends React.Component {
                                                     <td>{item.id}</td>
                                                     <td>{item.name}</td>
 
-                                                    <td>{item.address}</td>
+                                                    <td>{item.price}</td>
                                                     <td>
-                                                        <button onClick={() => this.onEdit(item.id, item.name, item.address)}>
+                                                        <button onClick={() => this.onEdit(item.id, item.name, item.price)}>
                                                             Edit
                                         </button>
-
-
 
                                                     </td>
                                                     <td>
 
-                                                        <button onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.onDelete(item.id) }}>
+                                                        <button onClick={() => this.props.onDelete(item.id)}>
                                                             Delete
-                                        </button>
-
-                                                     
+                                </button>
                                                     </td>
 
                                                 </tr>

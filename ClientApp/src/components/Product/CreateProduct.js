@@ -1,18 +1,18 @@
 ﻿import React, { Component } from 'react';
-import { Form } from './Form';
-    
+import { FormProduct } from './FormProduct';
 
-        export class Create extends Component {
-    displayName = Create.name
+
+export class CreateProduct extends Component {
+    displayName = CreateProduct.name
 
     constructor(props) {
         super(props);
         this.onAdd = this.onAdd.bind(this);
 
-        
+
 
     }
-   
+
 
     onAdd(data) {
         console.log(data);
@@ -20,7 +20,7 @@ import { Form } from './Form';
          items.push({ name, address });
          this.setState(items);*/
 
-        return fetch('api/Customers', {
+        return fetch('api/Products', {
             method: 'POST',
             //mode: 'CORS',
             // body: JSON.stringify({ Name: name, Address: address }),
@@ -30,18 +30,22 @@ import { Form } from './Form';
             }
         }).then(res => {
             return res;
+           // alert("Success");
+            
         }).catch(err => err);
+        
     }
 
     render() {
         return (
             <div>
-                <Form onAdd={this.onAdd} 
-                     />
+                <h2>Create Product</h2>
+                <FormProduct onAdd={this.onAdd}/>
+                
 
-               
+
 
             </div>
-                );
-            }
+        );
+    }
 }

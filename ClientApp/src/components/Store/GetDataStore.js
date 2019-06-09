@@ -1,17 +1,14 @@
 ﻿
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { MyComponent } from './MyComponent';
-//import { Link } from 'react-router-dom';
-//import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-//
+import { CreateStore } from './CreateStore';
 
 
+CreateStore
 
 
-export class GetData extends React.Component {
-    displayName = GetData.name
+export class GetDataStore extends React.Component {
+    displayName = GetDataStore.name
 
 
     constructor(props) {
@@ -71,14 +68,10 @@ export class GetData extends React.Component {
                         ? (
 
                             <div>
-                                <form name="Edit_data" className="form-horizontal"
-                                     onSubmit={this.onEditSubmit}
-                                   
-                                >
-                                    
+                                <form name="Edit_data" className="form-horizontal" onSubmit={this.onEditSubmit}>
                                     <div id="add_data">
                                         <div className="form-group">
-                                            <h2>Edit Customer</h2>
+                                            <h2>Edit Store</h2>
                                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                                             <div className="col-sm-10">
                                                 <input placeholder="Name"
@@ -105,12 +98,7 @@ export class GetData extends React.Component {
                                             <div className="col-sm-2"></div>
                                             <div className="col-sm-10">
                                                 <button
-                                                    className="btn-default btn"
-                                                    onClick={() => {
-                                                        alert('Record Save Successfully!')
-                                                    }}>
-                                                       
-                                                                                                              
+                                                    className="btn-default btn">
                                                     Save
                                 </button>
                                             </div>
@@ -124,11 +112,11 @@ export class GetData extends React.Component {
                         : (
                             <div>
                                 <div>
-                                    <Link to="/Create"><h2>Add Customer</h2></Link>
+                                    <Link to="./CreateStore"><h2>Add Store</h2></Link>
                                 </div>
                                 <div>
 
-                                    <h1>Customer Detail</h1>
+                                    <h1>Store Detail</h1>
                                     <p>This component demonstrates fetching data from the server.</p>
 
                                     <table className='table'>
@@ -154,16 +142,12 @@ export class GetData extends React.Component {
                                                             Edit
                                         </button>
 
-
-
                                                     </td>
                                                     <td>
 
-                                                        <button onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.onDelete(item.id) }}>
+                                                        <button onClick={() => this.props.onDelete(item.id)}>
                                                             Delete
-                                        </button>
-
-                                                     
+                                </button>
                                                     </td>
 
                                                 </tr>

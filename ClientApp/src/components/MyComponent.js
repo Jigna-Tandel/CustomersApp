@@ -2,6 +2,11 @@
 import React, { Component } from 'react';
 import { GetData } from './GetData';
 import { Link } from 'react-router-dom'
+//import { Alert } from 'react-alert'
+//import { Link } from 'react-router-dom';
+import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import './NavMenu.css';
 
 
 
@@ -25,8 +30,17 @@ export class MyComponent extends React.Component {
     componentDidMount() {
 
         this.fetchData();
+        
+    }
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props !== prevProps) {
+            this.fetchData();
+           
+        }
     }
 
+    
     fetchData() {
         fetch('api/Customers')
             .then(res => res.json())
@@ -86,9 +100,14 @@ export class MyComponent extends React.Component {
                 'Content-Type': 'application/json'
             }
         }).then(res => {
+           
             return res;
+          
+            
+            
+           
         }).catch(err => err);
-     
+       
        // this.fetchData();
     }
 
@@ -109,6 +128,7 @@ export class MyComponent extends React.Component {
                       
                     />
 
+                   
                 </div>
             );
 

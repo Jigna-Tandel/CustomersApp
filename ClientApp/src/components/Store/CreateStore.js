@@ -1,18 +1,18 @@
 ﻿import React, { Component } from 'react';
-import { Form } from './Form';
-    
+import { FormStore } from './FormStore';
 
-        export class Create extends Component {
-    displayName = Create.name
+
+export class CreateStore extends Component {
+    displayName = CreateStore.name
 
     constructor(props) {
         super(props);
         this.onAdd = this.onAdd.bind(this);
 
-        
+
 
     }
-   
+
 
     onAdd(data) {
         console.log(data);
@@ -20,7 +20,7 @@ import { Form } from './Form';
          items.push({ name, address });
          this.setState(items);*/
 
-        return fetch('api/Customers', {
+        return fetch('api/Stores', {
             method: 'POST',
             //mode: 'CORS',
             // body: JSON.stringify({ Name: name, Address: address }),
@@ -36,12 +36,13 @@ import { Form } from './Form';
     render() {
         return (
             <div>
-                <Form onAdd={this.onAdd} 
-                     />
+                <h2>Create Store</h2>
+                <FormStore onAdd={this.onAdd}/>
+                
 
-               
+
 
             </div>
-                );
-            }
+        );
+    }
 }
