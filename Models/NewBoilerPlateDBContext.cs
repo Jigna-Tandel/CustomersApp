@@ -1,18 +1,23 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace my_new_app.Models
 {
+    
     public partial class NewBoilerPlateDBContext : DbContext
     {
+        private readonly IConfiguration configuration;
         public NewBoilerPlateDBContext()
         {
         }
 
-        public NewBoilerPlateDBContext(DbContextOptions<NewBoilerPlateDBContext> options)
+        public NewBoilerPlateDBContext(DbContextOptions<NewBoilerPlateDBContext> options, IConfiguration configuration)
             : base(options)
         {
+            this.configuration = configuration;
+
         }
 
         public virtual DbSet<Customer> Customer { get; set; }
@@ -24,8 +29,8 @@ namespace my_new_app.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(local);Database=NewBoilerPlateDB;Trusted_Connection=True;");
+
+                optionsBuilder.UseSqlServer("DevConnection");
             }
         }
 

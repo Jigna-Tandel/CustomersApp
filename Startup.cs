@@ -3,9 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using my_new_app.Models;
+using System.Linq;
 
 namespace my_new_app
 {
@@ -23,7 +27,8 @@ namespace my_new_app
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddScoped<NewBoilerPlateDBContext, NewBoilerPlateDBContext>();
+            services.AddDbContext<NewBoilerPlateDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -49,6 +54,15 @@ namespace my_new_app
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<NewBoilerPlateDBContext>();
+                if (AllMigrationsApplied(context) == false)
+                {
+                    context.Database.Migrate();
+                }
+            }
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -65,6 +79,15 @@ namespace my_new_app
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+        }
+        private static bool AllMigrationsApplied(DbContext context)
+        {
+            var histories = context.GetService<IHistoryRepository>()
+                .GetAppliedMigrations();
+
+            var applied = histories.Select(m => m.MigrationId);
+            var total = context.GetService<IMigrationsAssembly>().Migrations.Select(m => m.Key);
+            return !total.Except(applied).Any();
         }
     }
 }
