@@ -1,24 +1,23 @@
 ﻿
 import React, { Component } from 'react';
-import { GetData } from './GetData';
+
 import { Link } from 'react-router-dom'
-import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { GetDataProduct } from './GetDataProduct';
 
 
+      
 
-
-export class CustomerMain extends React.Component {
-    displayName = CustomerMain.name
+export class ProductMain extends React.Component {
+    displayName = ProductMain.name
     constructor(props) {
         super(props);
         this.state = {
             error: null,
             isLoaded: false,
-            isedit: false,
             items: []
         };
-
+        //this.onDelete = this.onDelete.bind(this);
+        // this.onEditSubmit = this.onEditSubmit.bind(this);
     }
 
 
@@ -26,22 +25,17 @@ export class CustomerMain extends React.Component {
     componentDidMount() {
 
         this.fetchData();
-
     }
-    componentDidUpdate(prevProps) {
 
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
         if (this.props !== prevProps) {
             this.fetchData();
-            this.setState({ isedit: true })
-
-            // console.log('componentDidUpdate in MyComponent', this.state)
-
         }
     }
 
-
     fetchData() {
-        fetch('api/Customers')
+        fetch('api/Products')
             .then(res => res.json())
             .then(
                 (result) => {
@@ -50,6 +44,9 @@ export class CustomerMain extends React.Component {
                         items: result
                     });
                 },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
                 (error) => {
                     this.setState({
                         isLoaded: true,
@@ -64,7 +61,7 @@ export class CustomerMain extends React.Component {
         console.log("EventHandler called", id);
         console.log('id:' + id);
 
-        fetch('api/Customers/' + id, { method: 'Delete' })
+        fetch('api/Products/' + id, { method: 'Delete' })
             .then((result) => {
                 let items = this.state.items.filter((item) => {
                     return id !== item.id;
@@ -85,10 +82,10 @@ export class CustomerMain extends React.Component {
     }
 
 
-    onEdit = (id, data) => {
-        console.log('MyComponent', id);
-        console.log('MyComponent', data);
-        return fetch('api/Customers/' + id, {
+    onEdit(id, data) {
+        console.log(id);
+        console.log(data);
+        return fetch('api/Products/' + id, {
             method: 'PUT',
             // mode: 'CORS',
             body: JSON.stringify(data),
@@ -96,41 +93,28 @@ export class CustomerMain extends React.Component {
                 'Content-Type': 'application/json'
             }
         }).then(res => {
-
             return res;
+        }).catch(err => err);
 
-        }).then(response => {
-            alert('Record Edit Successfully');
-            this.setState({ isedit: true })
-            //alert(`inside Mycomponent ${this.state.isedit}`)
-        })
-            //  }).then(response => this.setState({isadd:false}))
-            // }).then(response => console.log('Success:', JSON.stringify(response)))
-            .catch(error => console.error('Error:', error));
-
+        // this.fetchData();
     }
 
     render() {
-
-        const { error, isLoaded, items, isedit } = this.state;
-
+        const { error, isLoaded, items } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
             return (
-
                 <div>
 
-
-                    <GetData items={this.state.items}
-                        isedit={this.state.isedit}
+                   
+                    <GetDataProduct items={this.state.items}
                         onDelete={this.handleDelete}
                         onEdit={this.onEdit}
 
                     />
-
 
                 </div>
             );

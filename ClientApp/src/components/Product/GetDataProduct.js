@@ -1,10 +1,14 @@
 ﻿
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { CreateProduct } from './CreateProduct';
+import { Button, Alert } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { FormEditProduct } from './FormEditProduct';
+import { CreateProduct } from './CreateProduct'
+import { ProductMain } from './ProductMain';
 
+//
 
-CreateProduct
 
 
 export class GetDataProduct extends React.Component {
@@ -16,7 +20,8 @@ export class GetDataProduct extends React.Component {
         this.state = {
             id: '',
             name: '',
-            price: ''
+            Price: '',
+            isedit: false
         }
         var isedit = false;
         var id;
@@ -27,141 +32,122 @@ export class GetDataProduct extends React.Component {
 
     }
 
-    onEdit(id, name, price) {
+
+    onEdit(id, name, Price) {
         this.setState({
             id: id,
             name: name,
-            price: price
+            Price: Price,
+            isedit: true
+
         })
-        this.isedit = true
+        // this.isedit = true
         this.id = id;
 
 
+    }
+
+
+    componentDidMount() {
+        this.setState({ isedit: false })
 
     }
 
-    onEditSubmit(event) {
-        event.preventDefault();
-        this.state.name = this.nameInput.value
-        this.state.price = this.priceInput.value;
-        const id = this.id;
-        const data = this.state;
-        console.log(id);
-        console.log(data);
 
+    onEditSubmit(id, data) {
         this.props.onEdit(id, data);
-        this.nameInput.value = "";
-        this.priceInput.value = "";
-        this.isedit = false;
-        // console.log(data)
+        this.setState({ isedit: false })
+
     }
-
-
 
     render() {
-        //const { name, price } = this.props.items;
-        console.log("name:" + this.state.name, "price:" + this.state.price);
-        return (
-            <div>
-                {
-                    this.isedit
-                        ? (
-
-                            <div>
-                                <form name="Edit_data" className="form-horizontal" onSubmit={this.onEditSubmit}>
-                                    <div id="add_data">
-                                        <div className="form-group">
-                                            <h2>Edit Product</h2>
-                                            <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
-                                            <div className="col-sm-10">
-                                                <input placeholder="Name"
-                                                    required="required"
-                                                    ref={nameInput => this.nameInput = nameInput}
-                                                    defaultValue={this.state.name} />
+        //console.log('GetData')
+        //console.log('props',this.props.isedit)
+        //const { name, Price } = this.props.items;
+        //console.log("name:" + this.state.name, "Price:" + this.state.Price);
+        if (this.props.isedit) {
+            return (
+                <div>
+                    <ProductMain></ProductMain>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    {
+                        this.state.isedit
+                            ? (
 
 
+                                <FormEditProduct
+                                    id={this.state.id}
+                                    name={this.state.name}
+                                    Price={this.state.Price}
+                                    onEditSubmit={this.onEditSubmit}></FormEditProduct>
 
-                                            </div>
+                            )
+                            : (
+                                <div>
+
+
+                                    <div>
+                                        <div>
+                                            <Link to="./CreateProduct"><h3>Add Product</h3></Link>
+
                                         </div>
-                                        <div className="form-group">
-                                            <label className="col-sm-2 control-label required" htmlFor="add_data_price">price</label>
-                                            <div className="col-sm-10">
+                                        <div>
+
+                                            <h2>Product Detail</h2>
 
 
-                                                <input placeholder="price"
-                                                    required="required"
-                                                    type="number"
-                                                    ref={priceInput => this.priceInput = priceInput}
-                                                    defaultValue={this.state.price} />
-                                            </div>
+                                            <table className='table'>
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Price</th>
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {this.props.items.map(item =>
+                                                        <tr key={item.id}>
+                                                            <td>{item.id}</td>
+                                                            <td>{item.name}</td>
+
+                                                            <td>{item.price}</td>
+                                                            <td>
+                                                                <button onClick={() => this.onEdit(item.id, item.name, item.Price)}>
+                                                                    Edit
+                                        </button>
+
+
+
+                                                            </td>
+                                                            <td>
+
+                                                                <button onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.onDelete(item.id) }}>
+                                                                    Delete
+                                        </button>
+
+
+                                                            </td>
+
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div className="form-group">
-                                            <div className="col-sm-2"></div>
-                                            <div className="col-sm-10">
-                                                <button
-                                                    className="btn-default btn">
-                                                    Save
-                                </button>
-                                            </div>
-                                        </div>
+
                                     </div>
-                                </form>
-                            </div>
-
-
-                        )
-                        : (
-                            <div>
-                                <div>
-                                    <Link to="./CreateProduct"><h2>Add Product</h2></Link>
                                 </div>
-                                <div>
-
-                                    <h1>Product Detail</h1>
-                                    <p>This component demonstrates fetching data from the server.</p>
-
-                                    <table className='table'>
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>price</th>
-                                                <th>Edit</th>
-                                                <th>Delete</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {this.props.items.map(item =>
-                                                <tr key={item.id}>
-                                                    <td>{item.id}</td>
-                                                    <td>{item.name}</td>
-
-                                                    <td>{item.price}</td>
-                                                    <td>
-                                                        <button onClick={() => this.onEdit(item.id, item.name, item.price)}>
-                                                            Edit
-                                        </button>
-
-                                                    </td>
-                                                    <td>
-
-                                                        <button onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.onDelete(item.id) }}>
-                                                            Delete
-                                        </button>
-                                                    </td>
-
-                                                </tr>
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        )
-                }
-            </div>
-
-        )
+                            )
+                    }
+                </div>
+            )
+        }
     }
 }

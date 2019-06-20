@@ -1,52 +1,52 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonToolbar,Button } from 'react-bootstrap';
+import { ButtonToolbar, Button } from 'react-bootstrap';
 
 
 
 
-export class Form extends React.Component {
-    displayName = Form.name
+export class Formcustomer extends React.Component {
+    displayName = Formcustomer.name
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
-       
-       
-                this.state = {
-                    name: '',
-                    address: ''
-                }
-          
-                      
+
+
+        this.state = {
+            name: '',
+            address: ''
         }
 
 
-    
-    
-    
-    handleNameChange=(event)=>{
+    }
+
+
+
+
+
+    handleNameChange = (event) => {
         this.setState({
-            name:event.target.value
+            name: event.target.value
         })
     }
-    handleAddressChange=(event)=>{
+    handleAddressChange = (event) => {
         this.setState({
-            address:event.target.value
+            address: event.target.value
         })
     }
     onSubmit(e) {
         e.preventDefault();
-        
-        const data = this.state;
-       // console.log(data);
-        this.props.onAdd(this.state);
-        
-       // alert(`${this.state.name} ${this.state.address}`)
 
-    this.setState({
-        name:'',
-        address:''
-    })
+        const data = this.state;
+        // console.log(data);
+        this.props.onAdd(this.state);
+
+        // alert(`${this.state.name} ${this.state.address}`)
+
+        this.setState({
+            name: '',
+            address: ''
+        })
 
     }
 
@@ -56,20 +56,20 @@ export class Form extends React.Component {
             <div>
                 <form name="add_data" className="form-horizontal"
                     onSubmit={this.onSubmit}>
-                 
-                        
-                                     
+
+
+
                     <div id="add_data">
                         <div className="form-group">
                             <h3>Add Customer</h3>
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                             <div className="col-sm-10">
                                 <input placeholder="Name"
-                                     id="add_data_Name"
+                                    id="add_data_Name"
                                     required="required"
                                     value={this.state.name}
                                     onChange={this.handleNameChange}
-                                   
+
                                 />
 
                             </div>
@@ -80,13 +80,13 @@ export class Form extends React.Component {
 
 
                                 <input placeholder="Address"
-                                   // ref={addressInput => this.addressInput = addressInput}
+                                    // ref={addressInput => this.addressInput = addressInput}
                                     id="add_data_Adress"
                                     required="required"
                                     value={this.state.address}
                                     onChange={this.handleAddressChange}
-                                    
-                             />
+
+                                />
                             </div>
                         </div>
                         <div className="form-group">
@@ -95,29 +95,16 @@ export class Form extends React.Component {
                                 <button type="submit"
                                     id="add_data_submit"
                                     className="btn-default btn">
-                                   
-                                
-                              
+
+
+
                                     Save
                                 </button>
-                                
+
                             </div>
                         </div>
                     </div>
-                    <div>
-
-                       {/* <ButtonToolbar>
-                            <Button bsStyle="primary">Primary</Button>
-                        <Button bsStyle="secondary">Secondary</Button>
-                        <Button bsStyle="success">Success</Button>
-                            <Button bsStyle="warning">Warning</Button>
-                            <Button bsStyle="danger">Danger</Button>
-                            <Button bsStyle="info">Info</Button>
-                            <Button bsStyle="light">Light</Button>
-                            <Button bsStyle="dark">Dark</Button>
-                            <Button bsStyle="link">Link</Button>
-                        </ButtonToolbar> */}
-                        </div>
+                    
                 </form>
             </div>
         );

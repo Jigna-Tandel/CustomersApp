@@ -34,7 +34,7 @@ export class MyComponent extends React.Component {
             this.fetchData();
             this.setState({ isedit: true })
 
-            console.log('componentDidUpdate in MyComponent', this.state)
+           // console.log('componentDidUpdate in MyComponent', this.state)
 
         }
     }

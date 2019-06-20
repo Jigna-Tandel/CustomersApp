@@ -1,17 +1,24 @@
 ﻿import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { ButtonToolbar, Button } from 'react-bootstrap';
 
 
 
-export class Form extends React.Component {
-    displayName = Form.name
+
+export class FormEditStore extends React.Component {
+    displayName = FormEditStore.name
     constructor(props) {
         super(props);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onEditSubmit = this.onEditSubmit.bind(this);
+        // this.handleNameChange=this.handleNameChange.bind(this);
+        //this.handleNameChange=this.handleNameChange.bind(this);
 
         this.state = {
-            name: '',
-            address: ''
+            id: this.props.id,
+            name: this.props.name,
+            address: this.props.address
         }
+        // alert(`${this.props.name} ${this.state.address} ${this.state.id}`)
 
 
     }
@@ -20,38 +27,52 @@ export class Form extends React.Component {
 
 
 
-    onSubmit(e) {
+    handleNameChange = (event) => {
+        this.setState({
+            name: event.target.value
+        })
+    }
+    handleAddressChange = (event) => {
+        this.setState({
+            address: event.target.value
+        })
+    }
+    onEditSubmit(e) {
         e.preventDefault();
-        // this.props.onSubmit(this.state);
-
-        // const data = new FormData(e.target.value);  
-        // this.props.onAdd(data);
-
-        // this.props.onAdd(this.nameInput.value, this.addressInput.value);
-        this.state.name = this.nameInput.value
-        this.state.address = this.addressInput.value;
+        const id = this.state.id
         const data = this.state;
         console.log(data);
-        this.props.onAdd(data);
-        this.nameInput.value = "";
-        this.addressInput.value = "";
+        this.props.onEditSubmit(id, data);
+        // alert(`${this.state.name} ${this.state.address} ${id}`)
+
+        this.setState({
+            name: '',
+            address: ''
+        })
 
     }
 
 
     render() {
+        //console.log('formEdit')
         return (
             <div>
-                <form name="add_data" className="form-horizontal" onSubmit={this.onSubmit}>
+                <form name="add_data" className="form-horizontal"
+                    onSubmit={this.onEditSubmit}>
+
+
+
                     <div id="add_data">
                         <div className="form-group">
-                            <h3>Add Customer</h3>
+                            <h3>Edit Store</h3>
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                             <div className="col-sm-10">
                                 <input placeholder="Name"
-                                    ref={nameInput => this.nameInput = nameInput}
+                                    // ref={nameInput => this.nameInput = nameInput}
                                     id="add_data_Name"
                                     required="required"
+                                    value={this.state.name}
+                                    onChange={this.handleNameChange}
 
                                 />
 
@@ -63,9 +84,11 @@ export class Form extends React.Component {
 
 
                                 <input placeholder="Address"
-                                    ref={addressInput => this.addressInput = addressInput}
+                                    // ref={addressInput => this.addressInput = addressInput}
                                     id="add_data_Adress"
                                     required="required"
+                                    value={this.state.address}
+                                    onChange={this.handleAddressChange}
 
                                 />
                             </div>
@@ -76,11 +99,14 @@ export class Form extends React.Component {
                                 <button type="submit"
                                     id="add_data_submit"
                                     className="btn-default btn">
-                                    Submit
+
+                                    Save
                                 </button>
+
                             </div>
                         </div>
                     </div>
+
                 </form>
             </div>
         );

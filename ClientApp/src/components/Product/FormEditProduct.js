@@ -5,17 +5,20 @@ import { ButtonToolbar, Button } from 'react-bootstrap';
 
 
 
-export class FormProduct extends React.Component {
-    displayName = FormProduct.name
+export class FormEditProduct extends React.Component {
+    displayName = FormEditProduct.name
     constructor(props) {
         super(props);
-        this.onSubmit = this.onSubmit.bind(this);
-
+        this.onEditSubmit = this.onEditSubmit.bind(this);
+        // this.handleNameChange=this.handleNameChange.bind(this);
+        //this.handleNameChange=this.handleNameChange.bind(this);
 
         this.state = {
-            name: '',
-            Price: ''
+            id: this.props.id,
+            name: this.props.name,
+            Price: this.props.Price
         }
+        // alert(`${this.props.name} ${this.state.Price} ${this.state.id}`)
 
 
     }
@@ -34,14 +37,13 @@ export class FormProduct extends React.Component {
             Price: event.target.value
         })
     }
-    onSubmit(e) {
+    onEditSubmit(e) {
         e.preventDefault();
-
+        const id = this.state.id
         const data = this.state;
-        // console.log(data);
-        this.props.onAdd(this.state);
-
-        // alert(`${this.state.name} ${this.state.Price}`)
+        console.log(data);
+        this.props.onEditSubmit(id, data);
+        // alert(`${this.state.name} ${this.state.Price} ${id}`)
 
         this.setState({
             name: '',
@@ -52,19 +54,21 @@ export class FormProduct extends React.Component {
 
 
     render() {
+        //console.log('formEdit')
         return (
             <div>
                 <form name="add_data" className="form-horizontal"
-                    onSubmit={this.onSubmit}>
+                    onSubmit={this.onEditSubmit}>
 
 
 
                     <div id="add_data">
                         <div className="form-group">
-                            <h3>Add Product</h3>
+                            <h3>Edit Product</h3>
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                             <div className="col-sm-10">
                                 <input placeholder="Name"
+                                    // ref={nameInput => this.nameInput = nameInput}
                                     id="add_data_Name"
                                     required="required"
                                     value={this.state.name}
@@ -96,8 +100,6 @@ export class FormProduct extends React.Component {
                                 <button type="submit"
                                     id="add_data_submit"
                                     className="btn-default btn">
-
-
 
                                     Save
                                 </button>
