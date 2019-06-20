@@ -1,28 +1,31 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ButtonToolbar,Button } from 'react-bootstrap';
 
 
 
 
-export class Form extends React.Component {
-    displayName = Form.name
+export class FormEdit extends React.Component {
+    displayName = FormEdit.name
     constructor(props) {
         super(props);
-        this.onSubmit = this.onSubmit.bind(this);
-       
+        this.onEditSubmit = this.onEditSubmit.bind(this);
+       // this.handleNameChange=this.handleNameChange.bind(this);
+        //this.handleNameChange=this.handleNameChange.bind(this);
        
                 this.state = {
-                    name: '',
-                    address: ''
+                    id:this.props.id,
+                    name: this.props.name,
+                    address:this.props.address
                 }
-          
+               // alert(`${this.props.name} ${this.state.address} ${this.state.id}`)
+
                       
         }
 
 
     
-    
+   
     
     handleNameChange=(event)=>{
         this.setState({
@@ -34,14 +37,13 @@ export class Form extends React.Component {
             address:event.target.value
         })
     }
-    onSubmit(e) {
+    onEditSubmit(e) {
         e.preventDefault();
-        
+        const id=this.state.id
         const data = this.state;
-       // console.log(data);
-        this.props.onAdd(this.state);
-        
-       // alert(`${this.state.name} ${this.state.address}`)
+        console.log(data);
+        this.props.onEditSubmit(id, data);
+       // alert(`${this.state.name} ${this.state.address} ${id}`)
 
     this.setState({
         name:'',
@@ -52,20 +54,22 @@ export class Form extends React.Component {
 
 
     render() {
+        console.log('formEdit')
         return (
             <div>
                 <form name="add_data" className="form-horizontal"
-                    onSubmit={this.onSubmit}>
+                    onSubmit={this.onEditSubmit}>
                  
                         
                                      
                     <div id="add_data">
                         <div className="form-group">
-                            <h3>Add Customer</h3>
+                            <h3>Edit Customer</h3>
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                             <div className="col-sm-10">
                                 <input placeholder="Name"
-                                     id="add_data_Name"
+                                   // ref={nameInput => this.nameInput = nameInput}
+                                    id="add_data_Name"
                                     required="required"
                                     value={this.state.name}
                                     onChange={this.handleNameChange}
@@ -95,29 +99,14 @@ export class Form extends React.Component {
                                 <button type="submit"
                                     id="add_data_submit"
                                     className="btn-default btn">
-                                   
-                                
-                              
+                                                               
                                     Save
                                 </button>
-                                
+                              
                             </div>
                         </div>
                     </div>
-                    <div>
-
-                       <ButtonToolbar>
-                            <Button bsStyle="primary">Primary</Button>
-                        <Button bsStyle="secondary">Secondary</Button>
-                        <Button bsStyle="success">Success</Button>
-                            <Button bsStyle="warning">Warning</Button>
-                            <Button bsStyle="danger">Danger</Button>
-                            <Button bsStyle="info">Info</Button>
-                            <Button bsStyle="light">Light</Button>
-                            <Button bsStyle="dark">Dark</Button>
-                            <Button bsStyle="link">Link</Button>
-                        </ButtonToolbar>
-                        </div>
+                   
                 </form>
             </div>
         );

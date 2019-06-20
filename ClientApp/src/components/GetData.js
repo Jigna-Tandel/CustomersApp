@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { MyComponent } from './MyComponent';
-//import { Link } from 'react-router-dom';
-//import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-//
+import {FormEdit} from './FormEdit';
 
+//
 
 
 
@@ -19,7 +19,8 @@ export class GetData extends React.Component {
         this.state = {
             id: '',
             name: '',
-            address: ''
+            address: '',
+             isedit : false
         }
         var isedit = false;
         var id;
@@ -27,109 +28,81 @@ export class GetData extends React.Component {
 
         this.onEdit = this.onEdit.bind(this);
         this.onEditSubmit = this.onEditSubmit.bind(this);
-
+       
     }
 
+  
     onEdit(id, name, address) {
         this.setState({
             id: id,
             name: name,
-            address: address
+            address: address,
+            isedit : true
+            
         })
-        this.isedit = true
+       // this.isedit = true
         this.id = id;
-
-
+        
 
     }
 
-    onEditSubmit(event) {
-        event.preventDefault();
-        this.state.name = this.nameInput.value
-        this.state.address = this.addressInput.value;
-        const id = this.id;
-        const data = this.state;
-        console.log(id);
-        console.log(data);
+   
+    componentDidMount(){
+        this.setState({isedit:false})
+               
+       }
+   
 
+    onEditSubmit(id,data)
+    {
         this.props.onEdit(id, data);
-        this.nameInput.value = "";
-        this.addressInput.value = "";
-        this.isedit = false;
-        // console.log(data)
+        this.setState({isedit:false}) 
+      
     }
-
-
 
     render() {
+        //console.log('GetData')
+        //console.log('props',this.props.isedit)
         //const { name, address } = this.props.items;
-        console.log("name:" + this.state.name, "address:" + this.state.address);
+        //console.log("name:" + this.state.name, "address:" + this.state.address);
+        if(this.props.isedit)
+        {
+            return(
+                <div>
+                    <MyComponent></MyComponent>
+                </div>
+            )
+        }
+        else
+        {
         return (
             <div>
                 {
-                    this.isedit
-                        ? (
+                    this.state.isedit
+                     ? (
 
-                            <div>
-                                <form name="Edit_data" className="form-horizontal"
-                                     onSubmit={this.onEditSubmit}
-                                   
-                                >
                                     
-                                    <div id="add_data">
-                                        <div className="form-group">
-                                            <h2>Edit Customer</h2>
-                                            <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
-                                            <div className="col-sm-10">
-                                                <input placeholder="Name"
-                                                    required="required"
-                                                    ref={nameInput => this.nameInput = nameInput}
-                                                    defaultValue={this.state.name} />
-
-
-
-                                            </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <label className="col-sm-2 control-label required" htmlFor="add_data_Address">Address</label>
-                                            <div className="col-sm-10">
-
-
-                                                <input placeholder="Address"
-                                                    required="required"
-                                                    ref={addressInput => this.addressInput = addressInput}
-                                                    defaultValue={this.state.address} />
-                                            </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="col-sm-2"></div>
-                                            <div className="col-sm-10">
-                                                <button
-                                                    className="btn-default btn"
-                                                    onClick={() => {
-                                                        alert('Record Save Successfully!')
-                                                    }}>
-                                                       
-                                                                                                              
-                                                    Save
-                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                        )
+                            <FormEdit 
+                            id={this.state.id}
+                            name={this.state.name}
+                            address={this.state.address} 
+                            onEditSubmit={this.onEditSubmit}></FormEdit>
+                                    
+)                        
                         : (
+                           <div>
+                               
+                           
                             <div>
                                 <div>
-                                    <Link to="/Create"><h2>Add Customer</h2></Link>
+                                    <Link to="/Create" ><h3>Add Customer
+                                        </h3>
+                                        </Link>
                                 </div>
                                 <div>
 
-                                    <h1>Customer Detail</h1>
-                                    <p>This component demonstrates fetching data from the server.</p>
+                                    <h2>Customer Detail</h2>
+                                    
 
                                     <table className='table'>
                                         <thead>
@@ -150,7 +123,7 @@ export class GetData extends React.Component {
 
                                                     <td>{item.address}</td>
                                                     <td>
-                                                        <button onClick={() => this.onEdit(item.id, item.name, item.address)}>
+                                                        <button  onClick={() => this.onEdit(item.id, item.name, item.address)}>
                                                             Edit
                                         </button>
 
@@ -159,11 +132,11 @@ export class GetData extends React.Component {
                                                     </td>
                                                     <td>
 
-                                                        <button onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.onDelete(item.id) }}>
+                                                        <button  onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.onDelete(item.id) }}>
                                                             Delete
                                         </button>
 
-                                                     
+
                                                     </td>
 
                                                 </tr>
@@ -173,10 +146,11 @@ export class GetData extends React.Component {
                                 </div>
 
                             </div>
+                       </div>
                         )
-                }
-            </div>
-
+                                            }
+</div>
         )
+                                        }
     }
 }
