@@ -92,9 +92,7 @@ export class GetData extends React.Component {
 
                                     <div>
                                         <div>
-                                            <Link to="/Create" ><h3>Add Customer
-                                        </h3>
-                                            </Link>
+                                            <Link to="./Create"><h3>Add Customer</h3></Link>
                                         </div>
                                         <div>
 
