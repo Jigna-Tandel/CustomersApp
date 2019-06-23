@@ -47,6 +47,13 @@ export class NavMenu extends Component {
               </NavItem>
                         </LinkContainer>
 
+                        <LinkContainer to={'/Sales/SalesMain'}>
+                            <NavItem>
+                                <Glyphicon glyph='th-list' /> Sales
+              </NavItem>
+                        </LinkContainer>
+
+
                         
 
 
