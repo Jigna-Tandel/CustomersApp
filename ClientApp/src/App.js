@@ -9,13 +9,8 @@ import { ProductMain } from './components/Product/ProductMain';
 import { CreateProduct } from './components/Product/CreateProduct';
 import { Create } from './components/Customer/Create';
 import { SalesMain } from './components/Sales/SalesMain';
-
-
-
-
-
-
-
+import LoadCustomer from './components/Sales/LoadCustomer';
+import { CreateSales } from './components/Sales/CreateSales';
 
 
 export default class App extends Component {
@@ -35,6 +30,9 @@ export default class App extends Component {
             <Route path='/Product/ProductMain' component={ProductMain} />
             <Route path='/Product/CreateProduct' component={CreateProduct} />
             <Route path='/Sales/SalesMain' component={SalesMain} />
+            <Route path='/Sales/LoadCustomer' component={LoadCustomer} />
+            <Route path='/Sales/CreateSales' component={CreateSales} />
+            
             
 
            

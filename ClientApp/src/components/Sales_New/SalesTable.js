@@ -16,8 +16,8 @@ export class SalesTable extends React.Component {
         var id;
 
 
-        this.onEdit = this.onEdit.bind(this);
-        this.onEditSubmit = this.onEditSubmit.bind(this);
+       // this.onEdit = this.onEdit.bind(this);
+        //this.onEditSubmit = this.onEditSubmit.bind(this);
 
     }
     render()
@@ -37,6 +37,9 @@ export class SalesTable extends React.Component {
             <th>Product</th>
             <th>Store</th>
             <th>Date</th>
+            <th>Action</th>
+            <th>Action</th>
+            
 
         </tr>
     </thead>
@@ -44,9 +47,11 @@ export class SalesTable extends React.Component {
         {this.props.items.map(item =>
             <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.Cust}</td>
+                <td>{item.cust.name}</td>
 
-                <td>{item.Prod}</td>
+                <td>{item.prod.name}</td>
+                <td>{item.store.name}</td>
+                <td>{item.datesold}</td>
                 <td>
                     <button>Edit</button>
                 </td>

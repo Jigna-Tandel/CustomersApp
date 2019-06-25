@@ -6,8 +6,9 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { FormEditSales } from './FormEditSales';
 import {CreateSales} from'./CreateSales'
 import { SalesMain } from './SalesMain';
+import LoadCustomer from './LoadCustomer';
+import { LoadEditData } from './LoadEditData';
 
-//
 
 
 
@@ -19,8 +20,13 @@ export class GetDataSales extends React.Component {
         super(props)
         this.state = {
             id: '',
-            name: '',
-            address: '',
+            datesold:'',
+            prodid:'',
+            prodname:'',
+            custid:'',
+            custname:'',
+            storeid:'',
+            storename:'',
             isedit: false
         }
         var isedit = false;
@@ -33,16 +39,26 @@ export class GetDataSales extends React.Component {
     }
 
 
-    onEdit(id, name, address) {
+    onEdit(id,datesold,prodid,prodname,custid,custname,storeid,storename) {
         this.setState({
             id: id,
-            name: name,
-            address: address,
+            datesold:datesold,
+            prodid:prodid,
+            prodname:prodname,
+            custid:custid,
+            custname:custname,
+            storeid:storeid,
+            storename:storename,
             isedit: true
-
         })
         // this.isedit = true
         this.id = id;
+        console.log('Id:',this.state.id)
+
+        console.log(this.state)
+        console.log('Id:',id)
+
+        console.log(custname)
 
 
     }
@@ -61,6 +77,9 @@ export class GetDataSales extends React.Component {
     }
 
     render() {
+        console.log('Id:',this.state.id)
+
+        console.log(this.state.name)
         //console.log('GetData')
         //console.log('props',this.props.isedit)
         //const { name, address } = this.props.items;
@@ -78,13 +97,22 @@ export class GetDataSales extends React.Component {
                     {
                         this.state.isedit
                             ? (
+                                <LoadEditData
+                                id={this.state.id}
+                               /* prodname={this.state.prodname}
+                                custname={this.state.custname}
+                                storename={this.state.storename}*/
+                                salesitem={this.state}
+                               // address={this.state.address}
+                                onEditSubmit={this.onEditSubmit}></LoadEditData>
 
-
-                                <FormEditSales
-                                    id={this.state.id}
-                                    name={this.state.name}
-                                    address={this.state.address}
-                                    onEditSubmit={this.onEditSubmit}></FormEditSales>
+                                // <FormEditSales
+                                //     id={this.state.id}
+                                //     prodname={this.state.prodname}
+                                //     custname={this.state.custname}
+                                //     storename={this.state.storename}
+                                //    // address={this.state.address}
+                                //     onEditSubmit={this.onEditSubmit}></FormEditSales>
 
                             )
                             : (
@@ -94,6 +122,7 @@ export class GetDataSales extends React.Component {
                                     <div>
                                         <div>
                                             <Link to="./CreateSales"><h3>Add Sales</h3></Link>
+                                            {/* <Link to="./LoadCustomer"><h3>Add Sales</h3></Link> */}
                                            
                                         </div>
                                         <div>
@@ -105,10 +134,13 @@ export class GetDataSales extends React.Component {
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th>Name</th>
-                                                        <th>Address</th>
-                                                        <th>Edit</th>
-                                                        <th>Delete</th>
+                                                       
+                                                        <th>Product</th>
+                                                        <th>Customer</th>
+                                                        <th>Store</th>
+                                                        <th>Date</th>
+                                                        <th>Action</th>
+                                                        <th>Action</th>
 
                                                     </tr>
                                                 </thead>
@@ -116,11 +148,23 @@ export class GetDataSales extends React.Component {
                                                     {this.props.items.map(item =>
                                                         <tr key={item.id}>
                                                             <td>{item.id}</td>
-                                                            <td>{item.Cust}</td>
-
-                                                            <td>{item.Prod}</td>
+                                                            <td>{item.prod.name}</td>
+                                                            <td>{item.cust.name}</td>
+                                                            <td>{item.store.name}</td>
                                                             <td>
-                                                                <button onClick={() => this.onEdit(item.id, item.name, item.address)}>
+                                                          
+         
+                                                            {item.datesold}</td>
+                                                            <td>
+                                                                <button onClick={() => 
+                                                                    this.onEdit(item.id,
+                                                                                item.datesold,
+                                                                                item .prod.id,    
+                                                                                item.prod.name,
+                                                                                item.cust.id, 
+                                                                                item.cust.name,
+                                                                                item.store.id,
+                                                                                item.store.name)}>
                                                                     Edit
                                         </button>
 

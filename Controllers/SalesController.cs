@@ -42,21 +42,21 @@ namespace my_new_app.Controllers
             //return Ok(await _context.Sales.ToListAsync());
         }
 
-
-        public async Task<IActionResult> NewSales(NewSalesRequest request)
+      //  [HttpPost]
+        public async Task<IActionResult> NewSales([FromBody]NewSalesRequest request)
         {
-            var sale = new Sales
+            var sale = new Sales 
             {
                 Datesold = DateTime.Now,
-                Cust = await _context.Customer.FindAsync(request.CustomerId),
-                Prod = await _context.Product.FindAsync(request.ProductId),
-                Store = await _context.Store.FindAsync(request.StoreID)
+                Cust = await _context.Customer.FindAsync(request.CustId),
+                Prod = await _context.Product.FindAsync(request.ProdId),
+                Store = await _context.Store.FindAsync(request.StoreId)
             };
 
             _context.Sales.Add(sale);
             await _context.SaveChangesAsync();
 
-            return Ok(sale.Id);
+            return Ok(sale);
         }
 
 
@@ -94,6 +94,7 @@ namespace my_new_app.Controllers
         {
             if (ModelState.IsValid)
             {
+                Sale.Datesold = DateTime.Now;
                 _context.Add(Sale);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -119,6 +120,7 @@ namespace my_new_app.Controllers
             {
                 try
                 {
+                    //Sale.Datesold = DateTime.Now;
                     _context.Update(Sale);
                     await _context.SaveChangesAsync();
                 }

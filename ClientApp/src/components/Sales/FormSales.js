@@ -14,12 +14,26 @@ export class FormSales extends React.Component {
 
         this.state = {
             name: '',
-            address: ''
+            customer:[]
         }
 
 
     }
-
+    componentDidMount() {
+        let custNames = [];
+        fetch('api/Customers')
+            .then(response => {
+                return response.json();
+            }).then(data => {
+            custNames = data.results.map((custName) => {
+                return custName
+            });
+            console.log(custNames);
+            this.setState({
+                customer: custNames,
+            });
+        });
+    }
 
 
 
@@ -29,11 +43,7 @@ export class FormSales extends React.Component {
             name: event.target.value
         })
     }
-    handleAddressChange = (event) => {
-        this.setState({
-            address: event.target.value
-        })
-    }
+   
     onSubmit(e) {
         e.preventDefault();
 
@@ -52,6 +62,11 @@ export class FormSales extends React.Component {
 
 
     render() {
+
+        // let customers = this.state.customer;
+        // let optionItems = customers.map((customer) =>
+        //         <option key={customer.id}>{customer.name}</option>
+        //     );
         return (
             <div>
                 <form name="add_data" className="form-horizontal"
@@ -64,15 +79,21 @@ export class FormSales extends React.Component {
                             <h3>Add Sales</h3>
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Name">Name</label>
                             <div className="col-sm-10">
-                                <input placeholder="Name"
+                                <input placeholder="id"
                                     id="add_data_Name"
                                     required="required"
-                                    value={this.state.name}
-                                    onChange={this.handleNameChange}
+                                    value={this.state.id}
+                                   // onChange={this.handleNameChange}
 
                                 />
 
                             </div>
+                            <label>CustomerName : </label>
+                            <div>
+             {/* <select>
+                {optionItems}
+             </select> */}
+         </div>
                         </div>
                         <div className="form-group">
                             <label className="col-sm-2 control-label required" htmlFor="add_data_Address">Address</label>

@@ -4,6 +4,7 @@
 
 import { SalesMain } from './SalesMain';
 import { FormSales } from './FormSales';
+import LoadCustomer from './LoadCustomer';
 
 
     
@@ -34,8 +35,8 @@ export class CreateSales extends Component {
 
 
     onAdd(data) {
-
-
+        
+        console.log('Inside CreateSale :',data)
         return fetch('api/Sales', {
             method: 'POST',
             body: JSON.stringify(data),
@@ -50,16 +51,18 @@ export class CreateSales extends Component {
         })
             .catch(error => console.error('Error:', error));
 
-
+            console.log('Inside CreateSale :',data)
     }
 
     render() {
 
-       
+
+    //    <FormSales></FormSales>
        if (this.state.isadd) {
             return (<div>
+                <LoadCustomer  onAdd={this.onAdd} isadd={this.state.isadd}></LoadCustomer>
               
-                <FormSales onAdd={this.onAdd} isadd={this.state.isadd} />
+                {/* <FormSales onAdd={this.onAdd} isadd={this.state.isadd} /> */}
             </div>
             )
         }
