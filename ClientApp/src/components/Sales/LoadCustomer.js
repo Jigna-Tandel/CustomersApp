@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormSales } from './FormSales';
+
 import {BindData} from './BindData';
 
 export class LoadCustomer extends Component {
@@ -101,6 +101,7 @@ export class LoadCustomer extends Component {
                  product={this.state.products}
                  store={this.state.stores}
                  onAdd={this.props.onAdd}
+                 onclose={this.props.onclose}
                  ></BindData> 
                 {/* <FormSales customer={this.state.customers}></FormSales> */}
             </div>

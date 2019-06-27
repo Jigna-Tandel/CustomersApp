@@ -20,7 +20,8 @@ export class GetData extends React.Component {
             id: '',
             name: '',
             address: '',
-            isedit: false
+            isedit: false,
+            isclose:false
         }
         var isedit = false;
         var id;
@@ -28,9 +29,13 @@ export class GetData extends React.Component {
 
         this.onEdit = this.onEdit.bind(this);
         this.onEditSubmit = this.onEditSubmit.bind(this);
+        this.onclose=this.onclose.bind(this)
 
     }
 
+    onclose(){
+        this.setState({isclose:true,isedit:false})
+    }
 
     onEdit(id, name, address) {
         this.setState({
@@ -64,7 +69,7 @@ export class GetData extends React.Component {
         //console.log('props',this.props.isedit)
         //const { name, address } = this.props.items;
         //console.log("name:" + this.state.name, "address:" + this.state.address);
-        if (this.props.isedit) {
+        if ((this.props.isedit)||(this.props.isclose)) {
             return (
                 <div>
                     <CustomerMain></CustomerMain>
@@ -83,7 +88,8 @@ export class GetData extends React.Component {
                                     id={this.state.id}
                                     name={this.state.name}
                                     address={this.state.address}
-                                    onEditSubmit={this.onEditSubmit}></FormEdit>
+                                    onEditSubmit={this.onEditSubmit}
+                                    onclose={this.onclose}></FormEdit>
 
                             )
                             : (

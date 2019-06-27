@@ -21,17 +21,21 @@ export class GetDataStore extends React.Component {
             id: '',
             name: '',
             address: '',
-            isedit: false
+            isedit: false,
+            isclose:false
         }
         var isedit = false;
         var id;
 
-
+        this.onclose=this.onclose.bind(this)
         this.onEdit = this.onEdit.bind(this);
         this.onEditSubmit = this.onEditSubmit.bind(this);
 
     }
+    onclose(){
+        this.setState({isclose:true,isedit:false})
 
+    }
 
     onEdit(id, name, address) {
         this.setState({
@@ -65,7 +69,7 @@ export class GetDataStore extends React.Component {
         //console.log('props',this.props.isedit)
         //const { name, address } = this.props.items;
         //console.log("name:" + this.state.name, "address:" + this.state.address);
-        if (this.props.isedit) {
+        if ((this.props.isedit)||(this.state.isclose)) {
             return (
                 <div>
                     <StoreMain></StoreMain>
@@ -84,7 +88,8 @@ export class GetDataStore extends React.Component {
                                     id={this.state.id}
                                     name={this.state.name}
                                     address={this.state.address}
-                                    onEditSubmit={this.onEditSubmit}></FormEditStore>
+                                    onEditSubmit={this.onEditSubmit}
+                                    onclose={this.onclose}></FormEditStore>
 
                             )
                             : (

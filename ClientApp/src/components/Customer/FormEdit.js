@@ -10,6 +10,7 @@ export class FormEdit extends React.Component {
     constructor(props) {
         super(props);
         this.onEditSubmit = this.onEditSubmit.bind(this);
+        this.onclose=this.onclose.bind(this)
         // this.handleNameChange=this.handleNameChange.bind(this);
         //this.handleNameChange=this.handleNameChange.bind(this);
 
@@ -24,7 +25,10 @@ export class FormEdit extends React.Component {
     }
 
 
-
+    onclose(){
+     
+        this.props.onclose();
+    }
 
 
     handleNameChange = (event) => {
@@ -94,17 +98,27 @@ export class FormEdit extends React.Component {
                             </div>
                         </div>
                         <div className="form-group">
-                            <div className="col-sm-2"></div>
+                        <div className="col-sm-2">
                             <div className="col-sm-10">
                                 <button type="submit"
                                     id="add_data_submit"
                                     className="btn-default btn">
 
+
+
                                     Save
                                 </button>
+                                <button 
+                                   onClick={this.onclose}
+                                    className="btn-default btn">
 
-                            </div>
-                        </div>
+
+
+                                    Close
+                                </button>
+
+                                </div>
+                            </div>                        </div>
                     </div>
 
                 </form>

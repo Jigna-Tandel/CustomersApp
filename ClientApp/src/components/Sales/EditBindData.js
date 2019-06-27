@@ -5,6 +5,7 @@ export class EditBindData extends Component {
     constructor(props) {
         super(props)
         this.onEditSubmit = this.onEditSubmit.bind(this);
+        this.onclose=this.onclose.bind(this);
         this.state = {
              id:this.props.id,
             // id:this.props.salesitem.id,
@@ -34,15 +35,26 @@ export class EditBindData extends Component {
         })
     }
       
+    onclose(){
+        this.props.onclose()
+       // alert("Close Click")
+    }
   
     onEditSubmit(e) {
         e.preventDefault();
         const id = this.state.id
         const data = this.state;
         console.log(data);
+        if(this.state.prodId &&this.state.custId&&this.state.storeId)
+        {
         this.props.onEditSubmit(id, data);
         console.log('insideBindData',this.state)
          alert(`${this.state.prodId} ${this.state.custId} ${this.state.storeId}`)
+        }
+        else
+        {
+            alert('Enter Value')
+        }
 
         this.setState({
             id:'',
@@ -110,9 +122,10 @@ export class EditBindData extends Component {
                {optionStore}
             </select>
         </div>
+      
         <div className="form-group">
                             <div className="col-sm-2"></div>
-                            <div className="col-sm-10">
+                            <div className="col-sm-10" >
                                 <button type="submit"
                                     id="add_data_submit"
                                     className="btn-default btn">
@@ -121,10 +134,18 @@ export class EditBindData extends Component {
 
                                     Save
                                 </button>
+                                
+                                <div className="col-sm-2" ></div>
+                                <button onClick= {this.onclose}>
+                                                                    Close
+                               </button>
 
                             </div>
-                            </div>
+                           
+                           
         </div>
+       
+      </div>
        </form>
         </div>
         )

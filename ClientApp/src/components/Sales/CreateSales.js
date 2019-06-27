@@ -3,8 +3,8 @@
 
 
 import { SalesMain } from './SalesMain';
-import { FormSales } from './FormSales';
 import LoadCustomer from './LoadCustomer';
+import { GetDataSales } from './GetDataSales';
 
 
     
@@ -13,22 +13,25 @@ export class CreateSales extends Component {
 
     constructor(props) {
         super(props);
-        this.onAdd = this.onAdd.bind(this);
+        this.onAdd = this.onAdd.bind(this)
+        this.onclose=this.onclose.bind(this)
 
         this.state = {
-            isadd: true
+            isadd: true,
+            isclose:false
         }
         // console.log('Constructor',this.state.isadd)
     }
     componentDidMount() {
         this.setState({ isadd: true })
+        
         // console.log('ComponentdidMount',this.state.isadd )
     }
-
+    
 
     componentDidUpdate(prevProps) {
         if (this.props !== prevProps) {
-            this.setState({ isadd: true });
+            this.setState({ isadd: true,isclose:false });
 
         }
     }
@@ -54,15 +57,35 @@ export class CreateSales extends Component {
             console.log('Inside CreateSale :',data)
     }
 
+    onclose(){
+        this.setState({
+            isclose:true
+        })
+
+    }
+
     render() {
 
+        if(this.state.isclose){
+            return (
 
-    //    <FormSales></FormSales>
-       if (this.state.isadd) {
+                <div>
+
+                <SalesMain></SalesMain>
+
+
+
+
+                </div>)
+        }
+    
+       else if (this.state.isadd ) {
             return (<div>
-                <LoadCustomer  onAdd={this.onAdd} isadd={this.state.isadd}></LoadCustomer>
-              
-                {/* <FormSales onAdd={this.onAdd} isadd={this.state.isadd} /> */}
+                <LoadCustomer  
+                onAdd={this.onAdd} 
+                isadd={this.state.isadd}
+                onclose={this.onclose}></LoadCustomer>
+                            
             </div>
             )
         }

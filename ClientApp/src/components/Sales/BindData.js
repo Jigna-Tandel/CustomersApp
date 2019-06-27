@@ -4,7 +4,8 @@ export class BindData extends Component {
     displayName = BindData.name
     constructor(props) {
         super(props)
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this)
+        this.onclose=this.onclose.bind(this)
         var today = new Date(),
         date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
@@ -18,7 +19,9 @@ export class BindData extends Component {
 
  
     handleCustomerChange=(event)=>{
+       
         this.setState({custId:event.target.value})
+        
     }
 
     handleProductChange=(event)=>{
@@ -32,15 +35,27 @@ export class BindData extends Component {
             storeId:event.target.value
         })
     }
+
+    onclose(e){
+       
+        
+        this.props.onclose()
+    }
        
     onSubmit(e) {
         e.preventDefault();
 
        // const data = this.state;
          //console.log('data',data);
+         if(this.state.prodId &&this.state.custId&&this.state.storeId)
+         {
         this.props.onAdd(this.state);
         console.log('insideBindData',this.state)
          alert(`${this.state.prodId} ${this.state.custId} ${this.state.storeId}`)
+         }
+         else{
+             alert('Enter value')
+         }
 
         this.setState({
             prodId:'',
@@ -61,7 +76,8 @@ export class BindData extends Component {
 
             let products = this.props.product;
         let optionProduct = products.map((product) =>
-                <option key={product.id} value={product.id}>{product.name}</option>
+                <option key={product.id} value={product.id}
+                required="required">{product.name}</option>
             );
 
             let stores = this.props.store;
@@ -79,19 +95,20 @@ export class BindData extends Component {
                       
                     </label>
                     <div className="col-sm-10">
-                    <input type="text" value={this.state.date}></input>
+                    <input type="text" value={this.state.date} className="col-sm-2"></input>
                     </div>
                 </div>
-                
+            </div>    
             
         <div className="form-group">
         <div  className="col-sm-10">
-            <label className="col-sm-2">Product   </label>
+            <label className="col-sm-2 control-label required">Product   </label>
             
             <div className="col-sm-10">
             <select value={this.state.prodId}
                     onChange={this.handleProductChange}
-                    defaultValue="Product" className="col-sm-2">
+                    defaultValue="Product" className="col-sm-2"
+                    required="required">
                          
                {optionProduct}
             </select>
@@ -124,7 +141,7 @@ export class BindData extends Component {
             </div>
         </div>
         <div className="form-group">
-                            <div className="col-sm-2"></div>
+                            <div className="col-sm-2">
                             <div className="col-sm-10">
                                 <button type="submit"
                                     id="add_data_submit"
@@ -134,10 +151,20 @@ export class BindData extends Component {
 
                                     Save
                                 </button>
+                                {/* <div className="col-sm-2" ></div> */}
+                                <button
+                                type="button"
+                                
+                                className="btn-default btn"
+                                 onClick= {this.onclose}
+                                 >
+                                                                    Close
+                               </button>
 
                             </div>
                             </div>
-        </div>
+                            </div>
+       
        </form>
         </div>
         )

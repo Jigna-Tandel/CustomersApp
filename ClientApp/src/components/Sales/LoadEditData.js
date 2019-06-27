@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormSales } from './FormSales';
+
 import {BindData} from './BindData';
 import { EditBindData } from './EditBindData';
 
@@ -108,6 +108,7 @@ export class LoadEditData extends Component {
                 //                 storename={this.props.storename}
                                // address={this.state.address}
                                 onEditSubmit={this.props.onEditSubmit}
+                                onclose={this.props.onclose}
                  ></EditBindData> 
                 {/* <FormSales customer={this.state.customers}></FormSales> */}
             </div>

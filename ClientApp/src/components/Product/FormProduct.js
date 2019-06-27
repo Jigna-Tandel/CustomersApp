@@ -10,6 +10,7 @@ export class FormProduct extends React.Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onclose=this.onclose.bind(this);
 
 
         this.state = {
@@ -21,7 +22,10 @@ export class FormProduct extends React.Component {
     }
 
 
-
+    onclose(){
+        
+        this.props.onclose();
+    }
 
 
     handleNameChange = (event) => {
@@ -91,7 +95,7 @@ export class FormProduct extends React.Component {
                             </div>
                         </div>
                         <div className="form-group">
-                            <div className="col-sm-2"></div>
+                            <div className="col-sm-2">
                             <div className="col-sm-10">
                                 <button type="submit"
                                     id="add_data_submit"
@@ -101,6 +105,15 @@ export class FormProduct extends React.Component {
 
                                     Save
                                 </button>
+                                <button type="button"
+                                   onClick={this.onclose}
+                                    className="btn-default btn">
+
+
+
+                                    Close
+                                </button>
+                                </div>
 
                             </div>
                         </div>

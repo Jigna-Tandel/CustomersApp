@@ -10,6 +10,7 @@ export class FormEditProduct extends React.Component {
     constructor(props) {
         super(props);
         this.onEditSubmit = this.onEditSubmit.bind(this);
+        this.onclose=this.onclose.bind(this)
         // this.handleNameChange=this.handleNameChange.bind(this);
         //this.handleNameChange=this.handleNameChange.bind(this);
 
@@ -18,7 +19,7 @@ export class FormEditProduct extends React.Component {
             name: this.props.name,
             Price: this.props.Price
         }
-        // alert(`${this.props.name} ${this.state.Price} ${this.state.id}`)
+        // alert(`${this.props.name} ${this.props.Price} ${this.state.id}`)
 
 
     }
@@ -26,7 +27,10 @@ export class FormEditProduct extends React.Component {
 
 
 
-
+    onclose(){
+       
+        this.props.onclose();
+    }
     handleNameChange = (event) => {
         this.setState({
             name: event.target.value
@@ -95,7 +99,7 @@ export class FormEditProduct extends React.Component {
                             </div>
                         </div>
                         <div className="form-group">
-                            <div className="col-sm-2"></div>
+                            <div className="col-sm-2">
                             <div className="col-sm-10">
                                 <button type="submit"
                                     id="add_data_submit"
@@ -103,6 +107,15 @@ export class FormEditProduct extends React.Component {
 
                                     Save
                                 </button>
+                                <button type="button"
+                                   onClick={this.onclose}
+                                    className="btn-default btn">
+
+
+
+                                    Close
+                                </button>
+                                </div>
 
                             </div>
                         </div>

@@ -12,10 +12,12 @@ export class Create extends Component {
 
     constructor(props) {
         super(props);
-        this.onAdd = this.onAdd.bind(this);
+        this.onAdd = this.onAdd.bind(this)
+        this.onclose=this.onclose.bind(this)
 
         this.state = {
-            isadd: true
+            isadd: true,
+            isclose:false
         }
         // console.log('Constructor',this.state.isadd)
     }
@@ -27,12 +29,14 @@ export class Create extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props !== prevProps) {
-            this.setState({ isadd: true });
+            this.setState({ isadd: true,isclose:false });
 
         }
     }
 
-
+    onclose(){
+        this.setState({isclose:true})
+    }
     onAdd(data) {
 
 
@@ -55,10 +59,23 @@ export class Create extends Component {
 
     render() {
 
+        if(this.state.isclose){
+            return (
 
-        if (this.state.isadd) {
+                <div>
+
+                    <CustomerMain></CustomerMain>
+
+
+
+                </div>)
+        }
+        else if (this.state.isadd) {
             return (<div>
-                <Formcustomer onAdd={this.onAdd} isadd={this.state.isadd} />
+                <Formcustomer 
+                onAdd={this.onAdd} 
+                isadd={this.state.isadd}
+                onclose={this.onclose} />
             </div>
             )
         }

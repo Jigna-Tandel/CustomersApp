@@ -21,7 +21,8 @@ export class GetDataProduct extends React.Component {
             id: '',
             name: '',
             Price: '',
-            isedit: false
+            isedit: false,
+            isclose:false
         }
         var isedit = false;
         var id;
@@ -29,7 +30,12 @@ export class GetDataProduct extends React.Component {
 
         this.onEdit = this.onEdit.bind(this);
         this.onEditSubmit = this.onEditSubmit.bind(this);
+        this.onclose=this.onclose.bind(this)
 
+    }
+
+    onclose(){
+        this.setState({isclose:true,isedit:false})
     }
 
 
@@ -43,7 +49,7 @@ export class GetDataProduct extends React.Component {
         })
         // this.isedit = true
         this.id = id;
-
+        
 
     }
 
@@ -65,7 +71,7 @@ export class GetDataProduct extends React.Component {
         //console.log('props',this.props.isedit)
         //const { name, Price } = this.props.items;
         //console.log("name:" + this.state.name, "Price:" + this.state.Price);
-        if (this.props.isedit) {
+        if ((this.props.isedit)||(this.state.isclose)) {
             return (
                 <div>
                     <ProductMain></ProductMain>
@@ -84,7 +90,8 @@ export class GetDataProduct extends React.Component {
                                     id={this.state.id}
                                     name={this.state.name}
                                     Price={this.state.Price}
-                                    onEditSubmit={this.onEditSubmit}></FormEditProduct>
+                                    onEditSubmit={this.onEditSubmit}
+                                    onclose={this.onclose}></FormEditProduct>
 
                             )
                             : (
@@ -120,7 +127,7 @@ export class GetDataProduct extends React.Component {
 
                                                             <td>{item.price}</td>
                                                             <td>
-                                                                <button onClick={() => this.onEdit(item.id, item.name, item.Price)}>
+                                                                <button onClick={() => this.onEdit(item.id, item.name, item.price)}>
                                                                     Edit
                                         </button>
 

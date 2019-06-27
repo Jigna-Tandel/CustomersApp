@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Button, Alert } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { FormEditSales } from './FormEditSales';
+
 import {CreateSales} from'./CreateSales'
 import { SalesMain } from './SalesMain';
 import LoadCustomer from './LoadCustomer';
@@ -27,7 +27,8 @@ export class GetDataSales extends React.Component {
             custname:'',
             storeid:'',
             storename:'',
-            isedit: false
+            isedit: false,
+            isclose:false,
         }
         var isedit = false;
         var id;
@@ -35,9 +36,17 @@ export class GetDataSales extends React.Component {
 
         this.onEdit = this.onEdit.bind(this);
         this.onEditSubmit = this.onEditSubmit.bind(this);
+        this.onclose=this.onclose.bind(this)
 
     }
-
+   
+    onclose()
+    {
+        this.setState({
+            isclose:true,
+            isedit:false
+        })
+    }
 
     onEdit(id,datesold,prodid,prodname,custid,custname,storeid,storename) {
         this.setState({
@@ -84,7 +93,7 @@ export class GetDataSales extends React.Component {
         //console.log('props',this.props.isedit)
         //const { name, address } = this.props.items;
         //console.log("name:" + this.state.name, "address:" + this.state.address);
-        if (this.props.isedit) {
+        if (this.props.isedit||this.state.isclose) {
             return (
                 <div>
                     <SalesMain></SalesMain>
@@ -104,7 +113,8 @@ export class GetDataSales extends React.Component {
                                 storename={this.state.storename}*/
                                 salesitem={this.state}
                                // address={this.state.address}
-                                onEditSubmit={this.onEditSubmit}></LoadEditData>
+                                onEditSubmit={this.onEditSubmit}
+                                onclose={this.onclose}></LoadEditData>
 
                                 // <FormEditSales
                                 //     id={this.state.id}
