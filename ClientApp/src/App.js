@@ -11,6 +11,9 @@ import { Create } from './components/Customer/Create';
 import { SalesMain } from './components/Sales/SalesMain';
 import LoadCustomer from './components/Sales/LoadCustomer';
 import { CreateSales } from './components/Sales/CreateSales';
+import { FormEdit } from './components/Customer/FormEdit';
+
+
 
 
 export default class App extends Component {
@@ -22,7 +25,7 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
        
            
-           
+          <Route path='/Customer/FormEdit' component={FormEdit} />
             <Route path='/Customer/Create' component={Create} />
             <Route path='/Customer/CustomerMain' component={CustomerMain} />
             <Route path='/Store/StoreMain' component={StoreMain} />

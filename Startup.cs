@@ -33,7 +33,7 @@ namespace my_new_app
                 });
 
             services.AddDbContext<NewBoilerPlateDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

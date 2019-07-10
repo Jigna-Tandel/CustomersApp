@@ -4,7 +4,7 @@ import { GetData } from './GetData';
 import { Link } from 'react-router-dom'
 import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-
+import {Pagination} from '../Pagination';
 
 
 
@@ -16,8 +16,20 @@ export class CustomerMain extends React.Component {
             error: null,
             isLoaded: false,
             isedit: false,
-            items: []
+            items: [],
+            currentPage:1,
+            setCurrentPage:1,
+            postsPerPage:4,
+            setPostsPerPage:5
         };
+
+      // this.paginate=this.paginate.bind(this)
+       //Get Current Posts
+    //    const indexOfLastPost=this.state.currentPage*this.state.postsPerPage
+    //    const indexOfFirstPost=indexOfLastPost-this.state.postsPerPage
+    //   const currentposts=this.state.items.slice(indexOfFirstPost,indexOfLastPost)
+
+     // this.paginate=this.paginate.bind(this)
 
     }
 
@@ -110,31 +122,55 @@ export class CustomerMain extends React.Component {
 
     }
 
+  
+    
+     paginate=(pageNumber)=>{
+         this.setState({currentPage:pageNumber})
+     }
+
+
     render() {
 
         const { error, isLoaded, items, isedit } = this.state;
+        const locationurl=window.location.href
+        console.log('location',locationurl)
 
+        // Get Current Posts
+         const indexOfLastPost=this.state.currentPage*this.state.postsPerPage
+         const indexOfFirstPost=indexOfLastPost-this.state.postsPerPage
+        const currentposts=this.state.items.slice(indexOfFirstPost,indexOfLastPost)
+        //const paginate=(pageNumber)=>setCurrentPage(pageNumber)
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
+           
             return (
 
                 <div>
 
 
-                    <GetData items={this.state.items}
+                    <GetData 
+                        items={currentposts}
+                        //items={this.state.items}
                         isedit={this.state.isedit}
                         onDelete={this.handleDelete}
                         onEdit={this.onEdit}
 
                     />
-
-
+                                                                           
+                    <Pagination 
+                    postsPerPage={this.state.postsPerPage} 
+                    totalPosts={items.length}
+                    locationurl={this.locationurl}
+                    paginate={this.paginate}
+                     />
+                    
                 </div>
             );
-
+            
+           
         }
     }
 }

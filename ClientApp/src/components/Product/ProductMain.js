@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { GetDataProduct } from './GetDataProduct';
+import {Pagination} from '../Pagination';
 
 
 
@@ -17,7 +18,11 @@ export class ProductMain extends React.Component {
             error: null,
             isLoaded: false,
             isedit: false,
-            items: []
+            items: [],
+            currentPage:1,
+            setCurrentPage:1,
+            postsPerPage:4,
+            setPostsPerPage:5
         };
 
     }
@@ -111,9 +116,21 @@ export class ProductMain extends React.Component {
 
     }
 
+    paginate=(pageNumber)=>{
+        this.setState({currentPage:pageNumber})
+    }
+
     render() {
 
         const { error, isLoaded, items, isedit } = this.state;
+
+        const locationurl=window.location.href
+        console.log('location',locationurl)
+
+        // Get Current Posts
+         const indexOfLastPost=this.state.currentPage*this.state.postsPerPage
+         const indexOfFirstPost=indexOfLastPost-this.state.postsPerPage
+        const currentposts=this.state.items.slice(indexOfFirstPost,indexOfLastPost)
 
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -125,14 +142,21 @@ export class ProductMain extends React.Component {
                 <div>
 
 
-                    <GetDataProduct items={this.state.items}
+                    <GetDataProduct 
+                        //items={this.state.items}
+                        items={currentposts}
                         isedit={this.state.isedit}
                         onDelete={this.handleDelete}
                         onEdit={this.onEdit}
 
                     />
 
-
+                <Pagination 
+                    postsPerPage={this.state.postsPerPage} 
+                    totalPosts={items.length}
+                    locationurl={this.locationurl}
+                    paginate={this.paginate}
+                     />
                 </div>
             );
 
